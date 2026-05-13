@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>FsHub Piloti VAF</title>
+</head>
+<body>
+  <h1>Lista Piloti VAF</h1>
+  <ul id="pilots-list"></ul>
+  <script>
+    const token = 'kh8f446IY8SHN5ogBP6jUXGma24w50W2yen5UX7qqVpy0aGpoSrilMrL2P9C'; // Inserisci il token FsHub qui
+    const url = 'https://api.fshub.io/v3/airline/VAF/pilots';
+    fetch(url, {
+      headers: {
+        'X-Pilot-Token': token
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        const list = document.getElementById('pilots-list');
+        data.pilots.forEach(pilot => {
+          const item = document.createElement('li');
+          item.textContent = pilot.name + " (" + pilot.callsign + ")";
+          list.appendChild(item);
+        });
+      })
+      .catch(error => {
+        console.error('Errore:', error);
+      });
+  </script>
+</body>
+</html>
